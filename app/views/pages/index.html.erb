@@ -1,1 +1,11 @@
-<h1>Index Working</h1>
+<ul>
+  <% @items.each do |item| %>
+    <li>
+      <h3><%= item[:title] %></h3>
+      <img src="<%= item[:image_url] %>" alt="Image">
+      <p><%= item[:description] %></p>
+      <p>Published: <%= item[:pub_date] %></p>
+      <a href="<%= item[:link] %>">Read More</a>
+    </li>
+  <% end %>
+</ul>
