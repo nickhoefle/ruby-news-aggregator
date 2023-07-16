@@ -73,3 +73,5 @@ end
 
 gem 'httparty'
 gem 'nokogiri'
+gem 'feedjira'
+gem 'rest-client'
