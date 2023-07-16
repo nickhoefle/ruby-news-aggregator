@@ -1,7 +1,32 @@
-#far-left-col,
 #left-col,
 #center-col,
-#right-col,
-#far-right-col  {
+#right-col {
     width: 20vw;
+    height: 100vh;
+    border-right: 1px solid black;
+}
+
+#far-left-col {
+    width: 20vw;
+    height: 100vh;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+
+#far-right-col {
+    width: 20vw;
+    height: 100vh;
+    border-right: 1px solid black;
+}
+
+#col-container {
+    display: flex;
+    justify-content: center;
+    padding: 2vw;
+}
+
+.lean {
+    text-align: center;
+    text-decoration: underline;
 }
