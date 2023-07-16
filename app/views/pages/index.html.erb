@@ -1,36 +1,49 @@
 <% if signed_in? %>
   <p>Logged in as: <%= current_user.email %></p>
   <%= button_to "Sign Out", sign_out_path, method: :delete %>
-
 <% else %>
   <%= link_to 'Sign In', sign_in_path %>
   <%= link_to 'Sign Up', sign_up_path %>
 <% end %>
 
-<!-- Rest of the HTML content -->
+<h2>Blocked Sources</h2>
+<%= form_tag update_blocked_sources_path, method: :post do %>
+  <% @sources.each do |source| %>
+    <label>
+      <%= check_box_tag "blocked_sources[]", source, current_user.source_blocked?(source) %>
+      <%= source %>
+    </label>
+  <% end %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= submit_tag "Save" %>
+<% end %>
 
 <h2>The Hill Items</h2>
 <ul>
   <% @thehill_items.each do |item| %>
-    <li>
-      <h3><%= item[:title] %></h3>
-      <img src="<%= item[:image_url] %>" alt="Image">
-      <p><%= item[:description] %></p>
-      <p>Published: <%= item[:pub_date] %></p>
-      <a href="<%= item[:link] %>">Read More</a>
-    </li>
+    <% unless current_user.source_blocked?('thehill') %>
+      <li>
+        <h3><%= item[:title] %></h3>
+        <img height="90px" src="<%= item[:image_url] %>" alt="Image">
+        <p><%= item[:description] %></p>
+        <p>Published: <%= item[:pub_date] %></p>
+        <a href="<%= item[:link] %>">Read More</a>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 
 <h2>Fox Business</h2>
 <ul>
   <% @foxbusiness_items.each do |item| %>
-    <li>
-      <h3><%= item[:title] %></h3>
-      <img src="<%= item[:image_url] %>" alt="Image">
-      <p><%= item[:description] %></p>
-      <p>Published: <%= item[:pub_date] %></p>
-      <a href="<%= item[:link] %>">Read More</a>
-    </li>
+    <% unless current_user.source_blocked?('foxbusiness') %>
+      <li>
+        <h3><%= item[:title] %></h3>
+        <img height="90px" src="<%= item[:image_url] %>" alt="Image">
+        <p><%= item[:description] %></p>
+        <p>Published: <%= item[:pub_date] %></p>
+        <a href="<%= item[:link] %>">Read More</a>
+      </li>
+    <% end %>
   <% end %>
 </ul>
