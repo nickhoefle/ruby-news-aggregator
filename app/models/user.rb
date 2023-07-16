@@ -1,8 +1,13 @@
+# app/models/user.rb
 class User < ApplicationRecord
-  # Include Devise modules for authentication
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # Include Clearance modules for authentication
+  include Clearance::User
 
-  # Add an attribute to store the blocked sources
+  # Add a column to store blocked sources as an array
   serialize :blocked_sources, Array
+
+  # Validation example: Ensure unique email addresses
+  validates :email, uniqueness: true
+
+  # Add any additional validations or associations as needed
 end

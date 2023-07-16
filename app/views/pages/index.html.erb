@@ -1,19 +1,16 @@
-<h2>Sources:</h2>
-<ul>
-  <li>
-    The Hill
-    <%= check_box_tag 'blocked_sources[]', 'The Hill', current_user.blocked_sources.include?('The Hill'), class: 'source-checkbox', id: 'thehill-checkbox' %>
-    Blocked
-  </li>
-  <li>
-    Fox Business
-    <%= check_box_tag 'blocked_sources[]', 'Fox Business', current_user.blocked_sources.include?('Fox Business'), class: 'source-checkbox', id: 'foxbusiness-checkbox' %>
-    Blocked
-  </li>
-</ul>
+<% if signed_in? %>
+  <p>Logged in as: <%= current_user.email %></p>
+  <%= button_to "Sign Out", sign_out_path, method: :delete %>
 
-<h2>The Hill List/List Items</h2>
-<ul id="thehill-list" <%= 'style="display: none;"' if current_user.blocked_sources.include?('The Hill') %>>
+<% else %>
+  <%= link_to 'Sign In', sign_in_path %>
+  <%= link_to 'Sign Up', sign_up_path %>
+<% end %>
+
+<!-- Rest of the HTML content -->
+
+<h2>The Hill Items</h2>
+<ul>
   <% @thehill_items.each do |item| %>
     <li>
       <h3><%= item[:title] %></h3>
@@ -25,16 +22,15 @@
   <% end %>
 </ul>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const thehillCheckbox = document.getElementById('thehill-checkbox');
-    const thehillList = document.getElementById('thehill-list');
-
-    thehillCheckbox.addEventListener('change', function() {
-      thehillList.style.display = thehillCheckbox.checked ? 'none' : 'block';
-    });
-
-    // Trigger the change event initially to apply the initial visibility
-    thehillCheckbox.dispatchEvent(new Event('change'));
-  });
-</script>
+<h2>Fox Business</h2>
+<ul>
+  <% @foxbusiness_items.each do |item| %>
+    <li>
+      <h3><%= item[:title] %></h3>
+      <img src="<%= item[:image_url] %>" alt="Image">
+      <p><%= item[:description] %></p>
+      <p>Published: <%= item[:pub_date] %></p>
+      <a href="<%= item[:link] %>">Read More</a>
+    </li>
+  <% end %>
+</ul>
