@@ -1,11 +1,19 @@
 require 'net/http'
 require 'json'
 require 'rexml/document'
+require 'nokogiri'
 
 class DataController < ApplicationController
   def index
     @thehill_items = fetch_feed_items('https://thehill.com/homenews/feed/')
     @foxbusiness_items = fetch_feed_items('https://moxie.foxbusiness.com/google-publisher/latest.xml')
+    @epochtimes_items = fetch_feed_items('https://www.theepochtimes.com/c-us/feed')
+    @nyt_items = fetch_feed_items('https://rss.nytimes.com/services/xml/rss/nyt/World.xml')
+    @theintercept_items = fetch_feed_items('https://theintercept.com/feed/?lang=en')
+    @dailymail_items = fetch_feed_items('https://www.dailymail.co.uk/news/worldnews/index.rss')
+    @infowars_items = fetch_feed_items('https://www.infowars.com/rss.xml')
+    @thedispatch_items = fetch_feed_items('https://thedispatch.com/feed/')
+    @reuters_items = fetch_feed_items('https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best')
   end
 
   private
@@ -19,9 +27,7 @@ class DataController < ApplicationController
       channel_image_url = extract_channel_image_url(channel)
       item_data = {
         title: item.elements['title'].text,
-        description: item.elements['description'].text,
         link: extract_link(item),
-        pub_date: item.elements['pubDate'].text,
         image_url: extract_image_url(item),
         channel_image_url: channel_image_url
       }
@@ -38,11 +44,32 @@ class DataController < ApplicationController
     image_url = item.elements['image']&.attributes&.fetch('url', nil)
     image_url ||= item.elements['enclosure']&.attributes&.fetch('url', nil)
     image_url ||= item.elements['media:content']&.attributes&.fetch('url', nil)
+    image_url ||= item.elements['media:group/media:content[@medium="image"]']&.attributes&.fetch('url', nil)
+    image_url ||= begin
+      content_encoded = item.elements['content:encoded']&.text
+      if content_encoded
+        doc = Nokogiri::HTML(content_encoded)
+        img_tag = doc.at_css('img')
+        img_tag['src'] if img_tag
+      end
+    end
     image_url
   end
 
   def extract_channel_image_url(channel)
-    channel.elements['image/url'].text
+    if channel.elements['title'].text == "US News | The Epoch Times"
+      '/assets/epoch-times.jpg'
+    elsif channel.elements['title'].text == "NYT > World News"
+      '/assets/nyt.jpg'
+    elsif channel.elements['title'].text == "The Intercept"
+      '/assets/theintercept.png'
+    elsif channel.elements['image']
+      channel.elements['image/url'].text
+    else
+      # Use the default fallback image URL
+      '/assets/default-channel-image.jpg'
+    end
   end
 end
+
 

@@ -40,61 +40,31 @@
 <div id="col-container">
   <div id="far-left-col">
     <h2 class="lean">Left</h2>
+    <%= render_article_list(@theintercept_items, 'theintercept') %>
   </div>
 
   <div id="left-col">
     <h2 class="lean">Center-Left</h2>
+    <%= render_article_list(@nyt_items, 'nyt') %>
   </div>
 
   <div id="center-col">
     <h2 class="lean">Center</h2>
-    <ul class="articles-list">
-      <% @thehill_items.take(3).each do |item| %>
-        <% unless current_user.source_blocked?('thehill') %>
-          <li>
-            <div class="source-and-headline-container">
-              <% if item[:channel_image_url].present? %>
-                <img class="source-icon" src="<%= item[:channel_image_url] %>">
-              <% end %>
-              <h3 class="headline">
-                <a href="<%= item[:link] %>"><%= item[:title] %></a>
-              </h3>
-            </div>
-            <div class="article-image-container">
-              <img class="resizable-image" src="<%= item[:image_url] %>" onclick="adjustImageSize(this, '100%')">
-            </div>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-</div>
+    <%= render_article_list(@thehill_items, 'thehill') %>
+    <%= render_article_list(@reuters_items, 'reuters') %>
+  </div>
 
   <div id="right-col">
     <h2 class="lean">Center-Right</h2>
     <%= render_article_list(@foxbusiness_items, 'foxbusiness') %>
+    <%= render_article_list(@thedispatch_items, 'thedispatch') %>
   </div>
 
   <div id="far-right-col">
     <h2 class="lean">Right</h2>
+    <%= render_article_list(@epochtimes_items, 'epochtimes') %>
+    <%= render_article_list(@dailymail_items, 'dailymail') %>
+    <%= render_article_list(@infowars_items, 'infowars') %>
   </div>
 </div>
-
-
-
-
-
-<h2>Fox Business</h2>
-<ul>
-  <% @foxbusiness_items.each do |item| %>
-    <% unless current_user.source_blocked?('foxbusiness') %>
-      <li>
-        <h3><%= item[:title] %></h3>
-        <img height="90px" src="<%= item[:image_url] %>" alt="Image">
-        <p><%= item[:description] %></p>
-        <p>Published: <%= item[:pub_date] %></p>
-        <a href="<%= item[:link] %>">Read More</a>
-      </li>
-    <% end %>
-  <% end %>
-</ul>
 
