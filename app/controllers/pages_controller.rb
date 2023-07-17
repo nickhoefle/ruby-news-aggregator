@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+include PagesHelper
   def index
     data_controller = DataController.new
     data_controller.index

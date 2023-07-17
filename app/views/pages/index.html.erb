@@ -71,25 +71,7 @@
 
   <div id="right-col">
     <h2 class="lean">Center-Right</h2>
-    <ul class="articles-list">
-      <% @foxbusiness_items.take(3).each do |item| %>
-        <% unless current_user.source_blocked?('foxbusiness') %>
-          <li>
-            <div class="source-and-headline-container">
-              <% if item[:channel_image_url].present? %>
-                <img class="source-icon" src="<%= item[:channel_image_url] %>">
-              <% end %>
-              <h3 class="headline">
-                <a href="<%= item[:link] %>"><%= item[:title] %></a>
-              </h3>
-            </div>
-            <div class="article-image-container">
-              <img class="resizable-image" src="<%= item[:image_url] %>" onclick="adjustImageSize(this, '100%')">
-            </div>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+    <%= render_article_list(@foxbusiness_items, 'foxbusiness') %>
   </div>
 
   <div id="far-right-col">
