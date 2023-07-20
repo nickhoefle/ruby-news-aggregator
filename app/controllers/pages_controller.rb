@@ -17,7 +17,7 @@ include PagesHelper
     @axios_items = data_controller.instance_variable_get(:@axios_items)
     @newyorker_items = data_controller.instance_variable_get(:@newyorker_items)
 
-    @sources = ['thehill', 'foxbusiness', 'epochtimes', 'nyt', 'theintercept', 'dailymail', 'infowars', 'thedispatch', 
-                'reuters', 'democracynow', 'dailybeast', 'axios', 'newyorker']
+    @sources = ['The Hill', 'Fox Business', 'Epoch Times', 'New York Times', 'The Intercept', 'DailyMail', 'Infowars', 'The Dispatch', 
+                'Reuters', 'Democracy Now!', 'Daily Beast', 'Axios', 'The New Yorker']
   end
 end
