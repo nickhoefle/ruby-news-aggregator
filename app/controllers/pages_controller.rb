@@ -12,6 +12,12 @@ include PagesHelper
     @infowars_items = data_controller.instance_variable_get(:@infowars_items)
     @thedispatch_items = data_controller.instance_variable_get(:@thedispatch_items)
     @reuters_items = data_controller.instance_variable_get(:@reuters_items)
-    @sources = ['thehill', 'foxbusiness', 'epochtimes', 'nyt', 'theintercept', 'dailymail', 'infowars', 'thedispatch', 'reuters'] # Add other sources as needed
+    @democracynow_items = data_controller.instance_variable_get(:@democracynow_items)
+    @dailybeast_items = data_controller.instance_variable_get(:@dailybeast_items)
+    @axios_items = data_controller.instance_variable_get(:@axios_items)
+    @newyorker_items = data_controller.instance_variable_get(:@newyorker_items)
+
+    @sources = ['thehill', 'foxbusiness', 'epochtimes', 'nyt', 'theintercept', 'dailymail', 'infowars', 'thedispatch', 
+                'reuters', 'democracynow', 'dailybeast', 'axios', 'newyorker']
   end
 end
