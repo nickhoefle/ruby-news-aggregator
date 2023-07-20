@@ -2,13 +2,13 @@
 #center-col,
 #right-col {
     width: 20vw;
-    height: 100vh;
+    height: auto;
     border-right: 1px solid white;
 }
 
 #far-left-col {
     width: 20vw;
-    height: 100vh;
+    height: auto;
     border-left: 1px solid white;
     border-right: 1px solid white;
 }
@@ -16,7 +16,7 @@
 
 #far-right-col {
     width: 20vw;
-    height: 100vh;
+    height: auto;
     border-right: 1px solid white;
 }
 
