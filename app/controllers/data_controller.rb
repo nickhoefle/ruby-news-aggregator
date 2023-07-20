@@ -14,6 +14,7 @@ class DataController < ApplicationController
     @infowars_items = fetch_feed_items('https://www.infowars.com/rss.xml')
     @thedispatch_items = fetch_feed_items('https://thedispatch.com/feed/')
     @reuters_items = fetch_feed_items('https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best')
+    @democracynow_items = fetch_feed_items('https://www.democracynow.org/democracynow.rss')
   end
 
   private
