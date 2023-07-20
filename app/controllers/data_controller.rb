@@ -16,6 +16,7 @@ class DataController < ApplicationController
     @reuters_items = fetch_feed_items('https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best')
     @democracynow_items = fetch_feed_items('https://www.democracynow.org/democracynow.rss')
     @dailybeast_items = fetch_feed_items('https://feeds.thedailybeast.com/rss/articles')
+    @axios_items = fetch_feed_items('https://api.axios.com/feed/')
   end
 
   private
@@ -67,6 +68,8 @@ class DataController < ApplicationController
       '/assets/theintercept.png'
     elsif channel.elements['image']
       channel.elements['image/url'].text
+    elsif channel.elements['title'].text == "Axios"
+      '/assets/axios.png'
     else
       # Use the default fallback image URL
       '/assets/default-channel-image.jpg'
